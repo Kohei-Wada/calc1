@@ -10,8 +10,9 @@
 
 %%
 line : 
-	 | line expr  '\n'  { printf("%d\n", $2); YYACCEPT;}
+	 | line expr  '\n' { printf("%d\n", $2); YYACCEPT;}
 	 | line error '\n' { yyerrok; }
+	 | '\n'            { YYACCEPT;}
 	 ;
 
 expr : expr '+' expr  { $$ = $1 + $3; }
