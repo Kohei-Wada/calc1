@@ -1,6 +1,9 @@
 %{
 #include <stdio.h>
 #include <ctype.h>
+
+extern int yylex();
+extern void yyerror(char *e);
 %}
 
 %token NUM
@@ -9,10 +12,14 @@
 
 
 %%
-line : 
-	 | line expr  '\n' { printf("%d\n", $2); YYACCEPT;}
-	 | line error '\n' { yyerrok; }
-	 | '\n'            { YYACCEPT;}
+
+stmnt:
+	 | stmnt line 
+	 ;
+
+line : expr   { printf("%d\n", $1); ;}
+	 | error  { yyerrok; }
+	 | '\n'
 	 ;
 
 expr : expr '+' expr  { $$ = $1 + $3; }

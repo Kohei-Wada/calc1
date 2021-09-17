@@ -1,5 +1,5 @@
 TARGET=parser
-CFLAGS= -g -Wall
+CFLAGS= -g #-Wall
 OBJS = parser.tab.o lex.yy.o
 
 
